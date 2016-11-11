@@ -26,11 +26,18 @@
 #define TCPSERVER_H
 
 #include <QQuickItem>
+#include <QTcpServer>
+
+#include "TcpSocket.h"
 
 class TcpServer : public QQuickItem {
     /* *INDENT-OFF* */
     Q_OBJECT
     /* *INDENT-ON* */
+
+    Q_PROPERTY(bool listen READ isListening WRITE setListening NOTIFY listeningChanged)
+    Q_PROPERTY(QString host READ getHost WRITE setHost NOTIFY hostChanged)
+    Q_PROPERTY(int port READ getPort WRITE setPort NOTIFY portChanged)
 
 public:
 
@@ -45,6 +52,85 @@ public:
      * @brief Destroys this TcpServer
      */
     ~TcpServer();
+
+    /**
+     * @brief Gets whether the socket is listening
+     *
+     * @return Whether the socket is listening
+     */
+    bool isListening() const;
+
+    /**
+     * @brief Enables/disables listening
+     *
+     * @param enable Whether to listen or close the socket and stop listening
+     */
+    void setListening(bool enable);
+
+    /**
+     * @brief Gets the current host name
+     *
+     * @return Current host name, e.g "127.0.0.1"
+     */
+    QString getHost() const { return host; }
+
+    /**
+     * @brief Sets the host name
+     *
+     * @param host The new host name, e.g "127.0.0.1"
+     */
+    void setHost(QString host);
+
+    /**
+     * @brief Gets the current port
+     *
+     * @return Current port
+     */
+    int getPort() const { return port; }
+
+    /**
+     * @brief Sets the port
+     *
+     * @param port The new port, must be in [0,65535]
+     */
+    void setPort(int port);
+
+signals:
+
+    /**
+     * @brief Emitted when listening changes
+     */
+    void listeningChanged();
+
+    /**
+     * @brief Emitted when the host name changes
+     */
+    void hostChanged();
+
+    /**
+     * @brief Emitted whe the port changes
+     */
+    void portChanged();
+
+    /**
+     * @brief Emitted when a new socket is connected
+     *
+     * @param newSocket The socket that has just connected
+     */
+    void newConnection(TcpSocket* newSocket);
+
+private slots:
+
+    /**
+     * @brief Gets the pending connections from the socket and emits newConnection(TcpSocket*) with them
+     */
+    void publishPendingConnections();
+
+private:
+
+    QString host;       ///< Host address, e.g "127.0.0.1"
+    quint16 port;       ///< Port to listen to
+    QTcpServer server;  ///< The QTcpServer object to wrap
 
 };
 

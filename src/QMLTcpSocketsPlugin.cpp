@@ -25,7 +25,9 @@
 #include "QMLTcpSocketsPlugin.h"
 
 #include "TcpServer.h"
+#include "TcpSocket.h"
 
 void QMLTcpSocketsPlugin::registerTypes(const char* uri){
     qmlRegisterType<TcpServer>(uri, 1, 0, "TcpServer");
+    qmlRegisterType<TcpSocket>(uri, 1, 0, "TcpSocket");
 }

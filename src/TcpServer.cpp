@@ -24,6 +24,71 @@
 
 #include "TcpServer.h"
 
-TcpServer::TcpServer(QQuickItem* parent) : QQuickItem(parent){}
+TcpServer::TcpServer(QQuickItem* parent):
+    QQuickItem(parent),
+    server(this)
+{
+    host = "0:0:0:0";
+    port = 0;
+    connect(&server, SIGNAL(newConnection()), this, SLOT(publishPendingConnections()));
+}
 
 TcpServer::~TcpServer(){}
+
+bool TcpServer::isListening() const{
+    return server.isListening();
+}
+
+void TcpServer::setListening(bool enable){
+    bool wasListening = server.isListening();
+
+    if(enable){
+        if(!server.listen(QHostAddress(host), port))
+            qWarning() << "TcpServer::setListening(): Couldn't start listening: " << server.errorString();
+    }
+    else
+        server.close();
+
+    if(wasListening != server.isListening())
+        emit listeningChanged();
+}
+
+void TcpServer::setHost(QString host){
+    if(host != this->host){
+        bool wasListening = isListening();
+        setListening(false);
+        this->host = host;
+        if(wasListening)
+            setListening(true);
+        emit hostChanged();
+    }
+}
+
+void TcpServer::setPort(int port){
+    if(port < 0){
+        qWarning() << "TcpServer::setPort(): port given was negative, setting to 0.";
+        port = 0;
+    }
+    else if(port > 0xFFFF){
+        qWarning() << "TcpServer::setPort(): port given was larger than 65535, setting to 65535.";
+        port = 0xFFFF;
+    }
+
+    if(port != this->port){
+        bool wasListening = isListening();
+        setListening(false);
+        this->port = port;
+        if(wasListening)
+            setListening(true);
+        emit portChanged();
+    }
+}
+
+void TcpServer::publishPendingConnections(){
+    while(server.hasPendingConnections()){
+        QTcpSocket* qsocket = server.nextPendingConnection();
+        TcpSocket* socket = new TcpSocket(qsocket, this);
+        qDebug() << "******************NEW CONNECTION: " << qsocket->peerAddress().toString();
+        emit newConnection(socket);
+    }
+}

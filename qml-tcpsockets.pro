@@ -17,11 +17,13 @@ uri = QMLTcpSockets
 
 HEADERS += \
     src/QMLTcpSocketsPlugin.h \
-    src/TcpServer.h
+    src/TcpServer.h \
+    src/TcpSocket.h
 
 SOURCES += \
     src/QMLTcpSocketsPlugin.cpp \
-    src/TcpServer.cpp
+    src/TcpServer.cpp \
+    src/TcpSocket.cpp
 
 OTHER_FILES += qmldir
 
