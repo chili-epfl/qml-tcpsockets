@@ -85,7 +85,6 @@ void TcpServer::setPort(int port){
 }
 
 void TcpServer::publishIncomingConnection(qintptr socketDescriptor){
-   qDebug() << "******************NEW CONNECTION"; //<< qsocket->peerAddress().toString();
    QIntPtr* wrappedSocketDesc = new QIntPtr();
    wrappedSocketDesc->ptr = socketDescriptor;
    emit newConnection(wrappedSocketDesc);

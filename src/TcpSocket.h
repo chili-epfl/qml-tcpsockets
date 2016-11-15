@@ -46,12 +46,12 @@ public:
     TcpSocket(QQuickItem* parent = 0);
 
     /**
-     * @brief Creates a new TcpSocket with the given QML parent
+     * @brief Creates a new TcpSocket with the given QML parent, calls socketDescriptor->deleteLater()
      *
-     * @param socketDescriptor Descriptor to the external native socket that was opened outside this wrapper
+     * @param socketDescriptor Descriptor to the external native socket that was opened outside this wrapper, calls deleteLater() on it in the end
      * @param parent The QML parent
      */
-    //TcpSocket(qintptr socketDescriptor, QQuickItem* parent = 0);
+    TcpSocket(QIntPtr* socketDescriptor, QQuickItem* parent = 0);
 
     /**
      * @brief Destroys this TcpSocket
@@ -68,10 +68,24 @@ public slots:
      */
     bool writeBytes(QList<int> bytes);
 
+    /**
+     * @brief Initializes the socket with the given native descriptor (returned from TcpServer), calls socketDescriptor->deleteLater() in the end
+     *
+     * @param socketDescriptor Native socket descriptor, calls deleterLater() on it in the end
+     */
+    void setSocketDescriptor(QIntPtr* socketDescriptor);
 
 
 
-    void setSocketDesc(QIntPtr* wrappedSocketDesc);
+
+
+
+
+
+
+
+
+
     void conn(QString host, int port);
 
 
@@ -95,15 +109,9 @@ signals:
     /**
      * @brief Emitted when some bytes are received
      *
-     * @param message Byte array that was received
+     * @param message Byte array that was received, all elements are guaranteed to be in [0x00, 0xFF]
      */
-    //void bytesReceived(QList<int> bytes);
-
-
-
-
-    void test();
-
+    void bytesReceived(QList<int> bytes);
 
 public slots:
 
@@ -114,8 +122,7 @@ public slots:
 
 private:
 
-    //const bool socketIsExternal;    ///< Socket was created outside this wrapper, should not be deleted
-    QTcpSocket socket;             ///< The low level socket
+    QTcpSocket socket;  ///< The low level socket
 
 };
 

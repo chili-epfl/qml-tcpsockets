@@ -16,40 +16,18 @@
  */
 
 /**
- * @file QIntPtr.h
- * @brief QObject wrapper for qintptr
+ * @file TcpSocketFactory.cpp
+ * @brief Singleton TcpSocket factory for QML
  * @author Ayberk Özgür
  * @date 2016-11-15
  */
 
-#ifndef QINTPTR_H
-#define QINTPTR_H
+#include"TcpSocketFactory.h"
 
-#include <QObject>
+TcpSocketFactory::TcpSocketFactory(QQuickItem* parent) : QQuickItem(parent){ }
 
-class QIntPtr : public QObject {
-    /* *INDENT-OFF* */
-    Q_OBJECT
-    /* *INDENT-ON* */
+TcpSocketFactory::~TcpSocketFactory(){ }
 
-public:
-
-    /**
-     * @brief Creates a new QIntPtr with the given Qt parent
-     *
-     * @param parent The Qt parent
-     */
-    QIntPtr(QObject* parent = 0);
-
-    /**
-     * @brief Destroys this QIntPtr
-     */
-    ~QIntPtr();
-
-    qintptr ptr; ///< Wrapped low level pointer
-
-};
-
-Q_DECLARE_METATYPE(QIntPtr*)
-
-#endif /* QINTPTR_H */
+TcpSocket* TcpSocketFactory::fromDescriptor(QIntPtr* socketDescriptor, QQuickItem* parent){
+    return new TcpSocket(socketDescriptor, parent);
+}

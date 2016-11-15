@@ -27,19 +27,18 @@
 TcpSocket::TcpSocket(QQuickItem* parent):
     QQuickItem(parent),
     socket(this)
-    //socketIsExternal(false)
 {
     connect(&socket, SIGNAL(connected()), this, SIGNAL(connected()));
     connect(&socket, SIGNAL(disconnected()), this, SIGNAL(disconnected()));
     connect(&socket, SIGNAL(readyRead()), this, SLOT(publish()));
 }
 
-/*TcpSocket::TcpSocket(qintptr socketDescriptor, QQuickItem* parent):
+TcpSocket::TcpSocket(QIntPtr* socketDescriptor, QQuickItem* parent):
     TcpSocket(parent)
-    //socketIsExternal(true)
 {
-    socket.setSocketDescriptor(socketDescriptor);
-}*/
+    socket.setSocketDescriptor(socketDescriptor->ptr);
+    socketDescriptor->deleteLater();
+}
 
 TcpSocket::~TcpSocket(){
     socket.flush();
@@ -48,13 +47,9 @@ TcpSocket::~TcpSocket(){
 void TcpSocket::publish(){
     QList<int> list;
     QByteArray receivedBytes = socket.readAll();
-
-    qDebug() << "QDEBUG: " << receivedBytes;
-
-    //for(char c : receivedBytes)
-    //    list << (int)c;
-    emit test();
-    qDebug() << "PUB";
+    for(char c : receivedBytes)
+        list << (int)c;
+    emit bytesReceived(list);
 }
 
 bool TcpSocket::writeBytes(QList<int> bytes){
@@ -84,7 +79,10 @@ bool TcpSocket::writeBytes(QList<int> bytes){
     return true;
 }
 
-
+void TcpSocket::setSocketDescriptor(QIntPtr* socketDescriptor){
+    socket.setSocketDescriptor(socketDescriptor->ptr);
+    socketDescriptor->deleteLater();
+}
 
 
 
@@ -93,8 +91,4 @@ bool TcpSocket::writeBytes(QList<int> bytes){
 
 void TcpSocket::conn(QString host, int port){
     socket.connectToHost(host, port);
-}
-void TcpSocket::setSocketDesc(QIntPtr* wrappedSocketDesc){
-    socket.setSocketDescriptor(wrappedSocketDesc->ptr);
-    wrappedSocketDesc->deleteLater();
 }

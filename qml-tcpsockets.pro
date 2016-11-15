@@ -20,14 +20,16 @@ HEADERS += \
     src/QIntPtr.h \
     src/QTcpServerPub.h \
     src/TcpServer.h \
-    src/TcpSocket.h
+    src/TcpSocket.h \
+    src/TcpSocketFactory.h
 
 SOURCES += \
     src/QMLTcpSocketsPlugin.cpp \
     src/QIntPtr.cpp \
     src/QTcpServerPub.cpp \
     src/TcpServer.cpp \
-    src/TcpSocket.cpp
+    src/TcpSocket.cpp \
+    src/TcpSocketFactory.cpp
 
 OTHER_FILES += qmldir
 
