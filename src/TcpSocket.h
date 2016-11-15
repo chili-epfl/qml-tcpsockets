@@ -36,6 +36,9 @@ class TcpSocket : public QQuickItem {
     Q_OBJECT
     /* *INDENT-ON* */
 
+    Q_PROPERTY(QString peer READ getPeer WRITE setPeer NOTIFY peerChanged)
+    Q_PROPERTY(int port READ getPort WRITE setPort NOTIFY portChanged)
+
 public:
 
     /**
@@ -58,7 +61,52 @@ public:
      */
     ~TcpSocket();
 
+    /**
+     * @brief Gets the current peer name
+     *
+     * @return Current peer name, e.g "127.0.0.1"
+     */
+    QString getPeer() const { return peer; }
+
+    /**
+     * @brief Sets the peer name
+     *
+     * @param peer The new peer name, e.g "127.0.0.1"
+     */
+    void setPeer(QString peer);
+
+    /**
+     * @brief Gets the current port
+     *
+     * @return Current port
+     */
+    int getPort() const { return port; }
+
+    /**
+     * @brief Sets the port
+     *
+     * @param port The new port, must be in [0,65535]
+     */
+    void setPort(int port);
+
 public slots:
+
+    /**
+     * @brief Initializes the socket with the given native descriptor (returned from TcpServer), calls socketDescriptor->deleteLater() in the end
+     *
+     * @param socketDescriptor Native socket descriptor, calls deleterLater() on it in the end
+     */
+    void setSocketDescriptor(QIntPtr* socketDescriptor);
+
+    /**
+     * @brief Initiates a connection to the peer on port
+     */
+    void connectToHost();
+
+    /**
+     * @brief Starts closing the socket
+     */
+    void disconnectFromHost();
 
     /**
      * @brief Writes bytes over the socket
@@ -68,33 +116,17 @@ public slots:
      */
     bool writeBytes(QList<int> bytes);
 
-    /**
-     * @brief Initializes the socket with the given native descriptor (returned from TcpServer), calls socketDescriptor->deleteLater() in the end
-     *
-     * @param socketDescriptor Native socket descriptor, calls deleterLater() on it in the end
-     */
-    void setSocketDescriptor(QIntPtr* socketDescriptor);
-
-
-
-
-
-
-
-
-
-
-
-
-    void conn(QString host, int port);
-
-
-
-
-
-
-
 signals:
+
+    /**
+     * @brief Emitted when the peer name changes
+     */
+    void peerChanged();
+
+    /**
+     * @brief Emitted whe the port changes
+     */
+    void portChanged();
 
     /**
      * @brief Emitted when the socket is connected
@@ -107,13 +139,20 @@ signals:
     void disconnected();
 
     /**
+     * @brief Emitted when there is an error
+     *
+     * @param socketError The error
+     */
+    void error(QAbstractSocket::SocketError socketError);
+
+    /**
      * @brief Emitted when some bytes are received
      *
      * @param message Byte array that was received, all elements are guaranteed to be in [0x00, 0xFF]
      */
     void bytesReceived(QList<int> bytes);
 
-public slots:
+private slots:
 
     /**
      * @brief Publishes all available received bytes via bytesReceived(QVariant)
@@ -123,6 +162,8 @@ public slots:
 private:
 
     QTcpSocket socket;  ///< The low level socket
+    QString peer;       ///< Peer address
+    quint16 port;       ///< Connection port
 
 };
 

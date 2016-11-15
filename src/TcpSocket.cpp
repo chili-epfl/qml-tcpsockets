@@ -24,13 +24,18 @@
 
 #include "TcpSocket.h"
 
+#include <QHostAddress>
+
 TcpSocket::TcpSocket(QQuickItem* parent):
     QQuickItem(parent),
     socket(this)
 {
     connect(&socket, SIGNAL(connected()), this, SIGNAL(connected()));
     connect(&socket, SIGNAL(disconnected()), this, SIGNAL(disconnected()));
+    connect(&socket, SIGNAL(error(QAbstractSocket::SocketError)), this, SIGNAL(error(QAbstractSocket::SocketError)));
     connect(&socket, SIGNAL(readyRead()), this, SLOT(publish()));
+    peer = "";
+    port = 0;
 }
 
 TcpSocket::TcpSocket(QIntPtr* socketDescriptor, QQuickItem* parent):
@@ -38,10 +43,73 @@ TcpSocket::TcpSocket(QIntPtr* socketDescriptor, QQuickItem* parent):
 {
     socket.setSocketDescriptor(socketDescriptor->ptr);
     socketDescriptor->deleteLater();
+    peer = socket.peerAddress().toString();
+    port = socket.peerPort();
 }
 
 TcpSocket::~TcpSocket(){
     socket.flush();
+}
+
+void TcpSocket::setSocketDescriptor(QIntPtr* socketDescriptor){
+    socket.flush();
+    socket.disconnectFromHost();
+
+    socket.setSocketDescriptor(socketDescriptor->ptr);
+    socketDescriptor->deleteLater();
+
+    QString peer = socket.peerAddress().toString();
+    if(this->peer != peer){
+        this->peer = peer;
+        emit peerChanged();
+    }
+
+    quint16 port = socket.peerPort();
+    if(this->port != port){
+        this->port = port;
+        emit portChanged();
+    }
+
+    emit connected();
+}
+
+void TcpSocket::setPeer(QString peer){
+    if(peer != this->peer){
+        if(socket.state() != QAbstractSocket::UnconnectedState)
+            qWarning() << "TcpSocket::setPeer(): Can only set peer while disconnected.";
+        else{
+            this->peer = peer;
+            emit peerChanged();
+        }
+    }
+}
+
+void TcpSocket::setPort(int port){
+    if(port < 0){
+        qWarning() << "TcpSocket::setPort(): port given was negative, setting to 0.";
+        port = 0;
+    }
+    else if(port > 0xFFFF){
+        qWarning() << "TcpSocket::setPort(): port given was larger than 65535, setting to 65535.";
+        port = 0xFFFF;
+    }
+
+    if(port != this->port){
+        if(socket.state() != QAbstractSocket::UnconnectedState)
+            qWarning() << "TcpSocket::setPort(): Can only set port while disconnected.";
+        else{
+            this->port = port;
+            emit portChanged();
+        }
+    }
+}
+
+void TcpSocket::connectToHost(){
+    socket.connectToHost(peer, port);
+}
+
+void TcpSocket::disconnectFromHost(){
+    socket.disconnectFromHost();
 }
 
 void TcpSocket::publish(){
@@ -77,18 +145,4 @@ bool TcpSocket::writeBytes(QList<int> bytes){
     socket.flush();
 
     return true;
-}
-
-void TcpSocket::setSocketDescriptor(QIntPtr* socketDescriptor){
-    socket.setSocketDescriptor(socketDescriptor->ptr);
-    socketDescriptor->deleteLater();
-}
-
-
-
-
-
-
-void TcpSocket::conn(QString host, int port){
-    socket.connectToHost(host, port);
 }
