@@ -17,11 +17,15 @@ uri = QMLTcpSockets
 
 HEADERS += \
     src/QMLTcpSocketsPlugin.h \
+    src/QIntPtr.h \
+    src/QTcpServerPub.h \
     src/TcpServer.h \
     src/TcpSocket.h
 
 SOURCES += \
     src/QMLTcpSocketsPlugin.cpp \
+    src/QIntPtr.cpp \
+    src/QTcpServerPub.cpp \
     src/TcpServer.cpp \
     src/TcpSocket.cpp
 

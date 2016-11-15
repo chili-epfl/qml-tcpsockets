@@ -16,20 +16,16 @@
  */
 
 /**
- * @file QMLTcpSocketsPlugin.h
- * @brief Object that exposes the QMLTcpSockets plugin components as QML objects
+ * @file QTcpServerPub.cpp
+ * @brief A QTcpServer that emits incomingConnection() as signal (duh)
  * @author Ayberk Özgür
- * @date 2016-11-10
+ * @date 2016-11-15
  */
 
-#include "QMLTcpSocketsPlugin.h"
+#include"QTcpServerPub.h"
 
-#include "TcpServer.h"
-#include "TcpSocket.h"
-#include "QIntPtr.h"
+QTcpServerPub::QTcpServerPub(QObject* parent) : QTcpServer(parent){ }
 
-void QMLTcpSocketsPlugin::registerTypes(const char* uri){
-    qmlRegisterType<TcpServer>(uri, 1, 0, "TcpServer");
-    qmlRegisterType<TcpSocket>(uri, 1, 0, "TcpSocket");
-    qmlRegisterType<QIntPtr>(uri, 1, 0, "QIntPtr");
+void QTcpServerPub::incomingConnection(qintptr socketDescriptor){
+    emit incomingConnectionSignal(socketDescriptor);
 }

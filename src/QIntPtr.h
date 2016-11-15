@@ -16,20 +16,35 @@
  */
 
 /**
- * @file QMLTcpSocketsPlugin.h
- * @brief Object that exposes the QMLTcpSockets plugin components as QML objects
+ * @file QIntPtr.h
+ * @brief QObject wrapper for qintptr
  * @author Ayberk Özgür
- * @date 2016-11-10
+ * @date 2016-11-15
  */
 
-#include "QMLTcpSocketsPlugin.h"
+#ifndef QINTPTR_H
+#define QINTPTR_H
 
-#include "TcpServer.h"
-#include "TcpSocket.h"
-#include "QIntPtr.h"
+#include <QObject>
 
-void QMLTcpSocketsPlugin::registerTypes(const char* uri){
-    qmlRegisterType<TcpServer>(uri, 1, 0, "TcpServer");
-    qmlRegisterType<TcpSocket>(uri, 1, 0, "TcpSocket");
-    qmlRegisterType<QIntPtr>(uri, 1, 0, "QIntPtr");
-}
+class QIntPtr : public QObject {
+    /* *INDENT-OFF* */
+    Q_OBJECT
+    /* *INDENT-ON* */
+
+public:
+
+    /**
+     * @brief Creates a new QIntPtr with the given Qt parent
+     *
+     * @param parent The Qt parent
+     */
+    QIntPtr(QObject* parent = 0);
+
+    qintptr ptr;
+
+};
+
+Q_DECLARE_METATYPE(QIntPtr*)
+
+#endif /* QINTPTR_H */

@@ -26,40 +26,34 @@
 
 TcpSocket::TcpSocket(QQuickItem* parent):
     QQuickItem(parent),
-    socketIsExternal(false)
+    socket(this)
+    //socketIsExternal(false)
 {
-    socket = new QTcpSocket(this);
-    connect(socket, SIGNAL(connected()), this, SIGNAL(connected()));
-    connect(socket, SIGNAL(disconnected()), this, SIGNAL(disconnected()));
-    connect(socket, SIGNAL(readyRead()), this, SLOT(publish()), Qt::QueuedConnection);
+    connect(&socket, SIGNAL(connected()), this, SIGNAL(connected()));
+    connect(&socket, SIGNAL(disconnected()), this, SIGNAL(disconnected()));
+    connect(&socket, SIGNAL(readyRead()), this, SLOT(publish()));
 }
 
-TcpSocket::TcpSocket(QTcpSocket* socket, QQuickItem* parent):
-    QQuickItem(parent),
-    socketIsExternal(true)
+/*TcpSocket::TcpSocket(qintptr socketDescriptor, QQuickItem* parent):
+    TcpSocket(parent)
+    //socketIsExternal(true)
 {
-    this->socket = socket;
-    connect(socket, SIGNAL(connected()), this, SIGNAL(connected()));
-    connect(socket, SIGNAL(disconnected()), this, SIGNAL(disconnected()));
-    connect(socket, SIGNAL(readyRead()), this, SLOT(publish()), Qt::QueuedConnection);
-}
+    socket.setSocketDescriptor(socketDescriptor);
+}*/
 
 TcpSocket::~TcpSocket(){
-    if(socketIsExternal)
-        socket->close();
-    else
-        delete socket;
+    socket.flush();
 }
 
 void TcpSocket::publish(){
     QList<int> list;
-    QByteArray receivedBytes = socket->readAll();
+    QByteArray receivedBytes = socket.readAll();
 
-    qDebug() << receivedBytes;
+    qDebug() << "QDEBUG: " << receivedBytes;
 
     //for(char c : receivedBytes)
     //    list << (int)c;
-    emit asdfg();
+    emit test();
     qDebug() << "PUB";
 }
 
@@ -77,14 +71,15 @@ bool TcpSocket::writeBytes(QList<int> bytes){
     int numBytesToWrite = container.size();
     const char* bytesRaw = container.constData();
     while(numBytesToWrite > 0){
-        int bytesWritten = socket->write(bytesRaw, numBytesToWrite);
+        int bytesWritten = socket.write(bytesRaw, numBytesToWrite);
         if(bytesWritten < 0){
-            qWarning() << "TcpSocket::writeBytes(): Bytes were not written: " << socket->errorString();
+            qWarning() << "TcpSocket::writeBytes(): Bytes were not written: " << socket.errorString();
             return false;
         }
         numBytesToWrite -= bytesWritten;
         bytesRaw += bytesWritten;
     }
+    socket.flush();
 
     return true;
 }
@@ -97,5 +92,9 @@ bool TcpSocket::writeBytes(QList<int> bytes){
 
 
 void TcpSocket::conn(QString host, int port){
-    socket->connectToHost(host, port);
+    socket.connectToHost(host, port);
+}
+void TcpSocket::setSocketDesc(QIntPtr* wrappedSocketDesc){
+    socket.setSocketDescriptor(wrappedSocketDesc->ptr);
+    wrappedSocketDesc->deleteLater();
 }

@@ -29,6 +29,8 @@
 #include <QTcpSocket>
 #include <QList>
 
+#include "QIntPtr.h"
+
 class TcpSocket : public QQuickItem {
     /* *INDENT-OFF* */
     Q_OBJECT
@@ -46,10 +48,10 @@ public:
     /**
      * @brief Creates a new TcpSocket with the given QML parent
      *
-     * @param socket Internal socket that was opened outside this wrapper
+     * @param socketDescriptor Descriptor to the external native socket that was opened outside this wrapper
      * @param parent The QML parent
      */
-    TcpSocket(QTcpSocket* socket, QQuickItem* parent = 0);
+    //TcpSocket(qintptr socketDescriptor, QQuickItem* parent = 0);
 
     /**
      * @brief Destroys this TcpSocket
@@ -69,9 +71,7 @@ public slots:
 
 
 
-
-
-
+    void setSocketDesc(QIntPtr* wrappedSocketDesc);
     void conn(QString host, int port);
 
 
@@ -97,9 +97,15 @@ signals:
      *
      * @param message Byte array that was received
      */
-    void asdfg();//QList<int> bytes);
+    //void bytesReceived(QList<int> bytes);
 
-private slots:
+
+
+
+    void test();
+
+
+public slots:
 
     /**
      * @brief Publishes all available received bytes via bytesReceived(QVariant)
@@ -108,9 +114,11 @@ private slots:
 
 private:
 
-    const bool socketIsExternal;    ///< Socket was created outside this wrapper, should not be deleted
-    QTcpSocket* socket;             ///< The low level socket
+    //const bool socketIsExternal;    ///< Socket was created outside this wrapper, should not be deleted
+    QTcpSocket socket;             ///< The low level socket
 
 };
+
+Q_DECLARE_METATYPE(TcpSocket*)
 
 #endif /* TCPSOCKET_H */

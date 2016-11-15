@@ -26,9 +26,10 @@
 #define TCPSERVER_H
 
 #include <QQuickItem>
-#include <QTcpServer>
 
+#include "QTcpServerPub.h"
 #include "TcpSocket.h"
+#include "QIntPtr.h"
 
 class TcpServer : public QQuickItem {
     /* *INDENT-OFF* */
@@ -115,22 +116,22 @@ signals:
     /**
      * @brief Emitted when a new socket is connected
      *
-     * @param newSocket The socket that has just connected
+     * @param socketDescriptor Native descriptor to the socket that has just connected
      */
-    void newConnection(TcpSocket* newSocket);
+    void newConnection(QIntPtr* socketDescriptor);
 
 private slots:
 
     /**
-     * @brief Gets the pending connections from the socket and emits newConnection(TcpSocket*) with them
+     * @brief Gets the incoming connection descriptor, wraps it in a QIntPtr and publishes it
      */
-    void publishPendingConnections();
+    void publishIncomingConnection(qintptr socketDescriptor);
 
 private:
 
-    QString host;       ///< Host address, e.g "127.0.0.1"
-    quint16 port;       ///< Port to listen to
-    QTcpServer server;  ///< The QTcpServer object to wrap
+    QString host;           ///< Host address, e.g "127.0.0.1"
+    quint16 port;           ///< Port to listen to
+    QTcpServerPub server;   ///< The QTcpServer object to wrap
 
 };
 

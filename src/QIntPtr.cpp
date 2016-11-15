@@ -16,20 +16,14 @@
  */
 
 /**
- * @file QMLTcpSocketsPlugin.h
- * @brief Object that exposes the QMLTcpSockets plugin components as QML objects
+ * @file QIntPtr.cpp
+ * @brief QObject wrapper for qintptr
  * @author Ayberk Özgür
- * @date 2016-11-10
+ * @date 2016-11-15
  */
 
-#include "QMLTcpSocketsPlugin.h"
+#include"QIntPtr.h"
 
-#include "TcpServer.h"
-#include "TcpSocket.h"
-#include "QIntPtr.h"
-
-void QMLTcpSocketsPlugin::registerTypes(const char* uri){
-    qmlRegisterType<TcpServer>(uri, 1, 0, "TcpServer");
-    qmlRegisterType<TcpSocket>(uri, 1, 0, "TcpSocket");
-    qmlRegisterType<QIntPtr>(uri, 1, 0, "QIntPtr");
+QIntPtr::QIntPtr(QObject* parent) : QObject(parent){
+    ptr = 0;
 }

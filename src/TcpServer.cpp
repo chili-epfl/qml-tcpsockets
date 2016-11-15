@@ -30,7 +30,7 @@ TcpServer::TcpServer(QQuickItem* parent):
 {
     host = "0:0:0:0";
     port = 0;
-    connect(&server, SIGNAL(newConnection()), this, SLOT(publishPendingConnections()));
+        connect(&server, SIGNAL(incomingConnectionSignal(qintptr)), this, SLOT(publishIncomingConnection(qintptr)));
 }
 
 TcpServer::~TcpServer(){}
@@ -84,11 +84,9 @@ void TcpServer::setPort(int port){
     }
 }
 
-void TcpServer::publishPendingConnections(){
-    while(server.hasPendingConnections()){
-        QTcpSocket* qsocket = server.nextPendingConnection();
-        TcpSocket* socket = new TcpSocket(qsocket, this);
-        qDebug() << "******************NEW CONNECTION: " << qsocket->peerAddress().toString();
-        emit newConnection(socket);
-    }
+void TcpServer::publishIncomingConnection(qintptr socketDescriptor){
+   qDebug() << "******************NEW CONNECTION"; //<< qsocket->peerAddress().toString();
+   QIntPtr* wrappedSocketDesc = new QIntPtr();
+   wrappedSocketDesc->ptr = socketDescriptor;
+   emit newConnection(wrappedSocketDesc);
 }
