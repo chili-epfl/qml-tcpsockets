@@ -1,7 +1,8 @@
 qml-tcpsockets
 ==============
 
-qml-tcpsockets contains QML wrappers for QTcpServer and QTcpSocket. More Qt Networking wrappers might come soon. It is tested with Qt 5.6.2 on the following:
+qml-tcpsockets contains QML wrappers for QTcpServer and QTcpSocket. More Qt Networking wrappers might come soon. It is
+tested with Qt 5.6.2 on the following:
 
   - Ubuntu 16.04
   - Android 6.0.1 (arm-v7) built with SDK API 19 and NDK r10e on Ubuntu 16.04 host
@@ -17,12 +18,15 @@ build
 
 This will install the QML plugin inside the Qt sysroot. **Be aware that this is not a sandboxed installation.**
 
+See [samples/](samples/) for example use of the API.
+
 QML API
 -------
 
 ### `TcpServer`
 
-QML wrapper for QTcpServer; listens for incoming connections. When a new connection is made, emits the native socket descriptor instead of a fully created socket, since the new TcpSocket must be created in the thread that uses it.
+QML wrapper for QTcpServer; listens for incoming connections. When a new connection is made, emits the native socket
+descriptor instead of a fully created socket, since the new TcpSocket must be created in the thread that uses it.
 
 **Properties:**
 
@@ -36,7 +40,8 @@ QML wrapper for QTcpServer; listens for incoming connections. When a new connect
 
 ### `TcpSocket`
 
-QML wrapper for QTcpSocket; can be created from a native socket descriptor returned from a TcpServer incoming connection, or can connect to a peer on its own.
+QML wrapper for QTcpSocket; can be created from a native socket descriptor returned from a TcpServer incoming
+connection, or can connect to a peer on its own.
 
 **Properties:**
 
@@ -59,7 +64,8 @@ QML wrapper for QTcpSocket; can be created from a native socket descriptor retur
 
 ### `TcpSocketFactory`
 
-Singleton object to create new a TcpSocket from a native socket descriptor (returned from a TcpServer incoming connection).
+Singleton object to create new a TcpSocket from a native socket descriptor (returned from a TcpServer incoming
+connection).
 
 **Properties:**
 
