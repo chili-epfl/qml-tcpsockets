@@ -21,7 +21,8 @@ HEADERS += \
     src/QTcpServerPub.h \
     src/TcpServer.h \
     src/TcpSocket.h \
-    src/TcpSocketFactory.h
+    src/TcpSocketFactory.h \
+    src/TcpSocketEnums.h
 
 SOURCES += \
     src/QMLTcpSocketsPlugin.cpp \
@@ -29,7 +30,8 @@ SOURCES += \
     src/QTcpServerPub.cpp \
     src/TcpServer.cpp \
     src/TcpSocket.cpp \
-    src/TcpSocketFactory.cpp
+    src/TcpSocketFactory.cpp \
+    src/TcpSocketEnums.cpp
 
 OTHER_FILES += qmldir
 

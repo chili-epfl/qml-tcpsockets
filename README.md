@@ -71,6 +71,10 @@ connection).
 
 >  - **TcpSocket fromDescriptor(QIntPtr socketDescriptor, Item parent)**: Creates and returns a new open socket that wraps the native socket descriptor, with the given QML parent (optional)
 
+### `TcpSocketEnums`
+
+Object that exposes all enums of QAbstractSocket.
+
 ### `QIntPtr`
 
 Object that wraps qintptr. Can be passed around in QML but doesn't have any API.

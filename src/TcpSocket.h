@@ -30,6 +30,7 @@
 #include <QList>
 
 #include "QIntPtr.h"
+#include "TcpSocketEnums.h"
 
 class TcpSocket : public QQuickItem {
     /* *INDENT-OFF* */
@@ -99,6 +100,14 @@ public slots:
     void setSocketDescriptor(QIntPtr* socketDescriptor);
 
     /**
+     * Sets the given low level option to the value described by value.
+     *
+     * @param option The option of TcpSocketEnums::SocketOption type (see http://doc.qt.io/qt-5/qabstractsocket.html#SocketOption-enum)
+     * @param value The value
+     */
+    void setSocketOption(int option, QVariant value);
+
+    /**
      * @brief Initiates a connection to the peer on port
      */
     void connectToHost();
@@ -141,9 +150,9 @@ signals:
     /**
      * @brief Emitted when there is an error
      *
-     * @param socketError The error
+     * @param socketError The error of TcpSocketEnums::SocketError type (see http://doc.qt.io/qt-5/qabstractsocket.html#SocketError-enum)
      */
-    void error(QAbstractSocket::SocketError socketError);
+    void error(int socketError);
 
     /**
      * @brief Emitted when some bytes are received
@@ -158,6 +167,13 @@ private slots:
      * @brief Publishes all available received bytes via bytesReceived(QVariant)
      */
     void publish();
+
+    /**
+     * @brief Emits error(int socketError)
+     *
+     * @param socketError The socket error to emit
+     */
+    void emitErrorAsInt(QAbstractSocket::SocketError socketError);
 
 private:
 

@@ -28,15 +28,18 @@
 #include "TcpSocket.h"
 #include "QIntPtr.h"
 #include "TcpSocketFactory.h"
+#include "TcpSocketEnums.h"
 
 void QMLTcpSocketsPlugin::registerTypes(const char* uri){
     qmlRegisterType<TcpServer>(uri, 1, 0, "TcpServer");
     qmlRegisterType<TcpSocket>(uri, 1, 0, "TcpSocket");
+    qmlRegisterType<TcpSocketEnums>(uri, 1, 0, "TcpSocketEnums");
     qmlRegisterType<QIntPtr>(uri, 1, 0, "QIntPtr");
     qmlRegisterSingletonType<TcpSocketFactory>(uri, 1, 0, "TcpSocketFactory",
-                                                    [] (QQmlEngine* qmlEngine, QJSEngine* jsEngine)->QObject* {
-                                                        Q_UNUSED(qmlEngine)
-                                                        Q_UNUSED(jsEngine)
-                                                        return new TcpSocketFactory();
-                                                    });
+                                               [] (QQmlEngine* qmlEngine, QJSEngine* jsEngine)->QObject* {
+                                                   Q_UNUSED(qmlEngine)
+                                                   Q_UNUSED(jsEngine)
+                                                   return new TcpSocketFactory();
+                                               });
+    qmlRegisterType<TcpSocketEnums>(uri, 1, 0, "TcpSocketEnums");
 }

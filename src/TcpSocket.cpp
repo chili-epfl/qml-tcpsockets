@@ -32,7 +32,7 @@ TcpSocket::TcpSocket(QQuickItem* parent):
 {
     connect(&socket, SIGNAL(connected()), this, SIGNAL(connected()));
     connect(&socket, SIGNAL(disconnected()), this, SIGNAL(disconnected()));
-    connect(&socket, SIGNAL(error(QAbstractSocket::SocketError)), this, SIGNAL(error(QAbstractSocket::SocketError)));
+    connect(&socket, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(emitErrorAsInt(QAbstractSocket::SocketError)));
     connect(&socket, SIGNAL(readyRead()), this, SLOT(publish()));
     peer = "";
     port = 0;
@@ -73,9 +73,13 @@ void TcpSocket::setSocketDescriptor(QIntPtr* socketDescriptor){
     emit connected();
 }
 
+void TcpSocket::setSocketOption(int option, QVariant value){
+    socket.setSocketOption((QAbstractSocket::SocketOption)option, value);
+}
+
 void TcpSocket::setPeer(QString peer){
     if(peer != this->peer){
-        if(socket.state() != QAbstractSocket::UnconnectedState)
+        if(socket.state() != TcpSocketEnums::UnconnectedState)
             qWarning() << "TcpSocket::setPeer(): Can only set peer while disconnected.";
         else{
             this->peer = peer;
@@ -95,7 +99,7 @@ void TcpSocket::setPort(int port){
     }
 
     if(port != this->port){
-        if(socket.state() != QAbstractSocket::UnconnectedState)
+        if(socket.state() != TcpSocketEnums::UnconnectedState)
             qWarning() << "TcpSocket::setPort(): Can only set port while disconnected.";
         else{
             this->port = port;
@@ -110,6 +114,10 @@ void TcpSocket::connectToHost(){
 
 void TcpSocket::disconnectFromHost(){
     socket.disconnectFromHost();
+}
+
+void TcpSocket::emitErrorAsInt(QAbstractSocket::SocketError socketError){
+    emit error(socketError);
 }
 
 void TcpSocket::publish(){

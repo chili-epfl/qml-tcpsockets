@@ -31,6 +31,7 @@ ApplicationWindow {
 
         onNewConnection: {
             serverSocket = TcpSocketFactory.fromDescriptor(socketDescriptor);
+            serverSocket.setSocketOption(TcpSocketEnums.LowDelayOption, 1);
             serverSocket.bytesReceived.connect(function(bytes){console.log("Server received: " + getStr(bytes)); });
             serverSocket.connected.connect(function(){console.log("Server socket connected."); });
             serverSocket.disconnected.connect(function(){console.log("Server socket disconnected."); });
@@ -47,7 +48,10 @@ ApplicationWindow {
         peer: clientAddressField.text
         port: parseInt(clientPortField.text)
         onBytesReceived: console.log("Client received: " + getStr(bytes))
-        onConnected: console.log("Client socket connected")
+        onConnected: {
+            console.log("Client socket connected");
+            setSocketOption(TcpSocketEnums.LowDelayOption, 1);
+        }
         onDisconnected: console.log("Client socket disconnected")
         onPeerChanged: console.log("Client socket peer changed: " + peer)
         onPortChanged: console.log("Client socket port changed: " + port)
