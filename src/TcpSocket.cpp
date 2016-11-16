@@ -116,7 +116,7 @@ void TcpSocket::publish(){
     QList<int> list;
     QByteArray receivedBytes = socket.readAll();
     for(char c : receivedBytes)
-        list << (int)c;
+        list << (int)(*((unsigned char*)(&c)));
     emit bytesReceived(list);
 }
 
