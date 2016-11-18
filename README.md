@@ -53,14 +53,14 @@ connection, or can connect to a peer on its own.
 >  - **connected()** :                      Emitted when the socket connects
 >  - **disconnected()** :                   Emitted when the socket disconnects
 >  - **error(enum socketError)** :          Emitted when an error occurs
->  - **bytesReceived(list<int> bytes)** :   Emitted when new bytes arrive, all elements will be within [0x00, 0xFF]
+>  - **bytesReceived(list&lt;int&gt; bytes)** :   Emitted when new bytes arrive, all elements will be within [0x00, 0xFF]
 
 **Slots:**
 
 >  - **void setSocketDescriptor(QIntPtr socketDescriptor)**: Wraps the native socket descriptor of the already open socket (coming from TcpServer) with this TcpSocket, the socket will be ready to use
 >  - **void connectToHost()**:                               Connects to the given peer on the given port
 >  - **void disconnectFromHost()**:                          Disconnects from the host
->  - **bool writeBytes(list<int> bytes)**:                   Writes the bytes to the socket, each element must be within [0x00, 0xFF], returns whether all bytes were successfully written
+>  - **bool writeBytes(list&lt;int&gt; bytes)**:                   Writes the bytes to the socket, each element must be within [0x00, 0xFF], returns whether all bytes were successfully written
 
 ### `TcpSocketFactory`
 
