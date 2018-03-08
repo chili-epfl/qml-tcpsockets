@@ -24,10 +24,14 @@
 
 #include"TcpSocketFactory.h"
 
+namespace QMLTcpSockets{
+
 TcpSocketFactory::TcpSocketFactory(QQuickItem* parent) : QQuickItem(parent){ }
 
 TcpSocketFactory::~TcpSocketFactory(){ }
 
 TcpSocket* TcpSocketFactory::fromDescriptor(QIntPtr* socketDescriptor, QQuickItem* parent){
     return new TcpSocket(socketDescriptor, parent);
+}
+
 }

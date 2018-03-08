@@ -30,10 +30,11 @@
 #include "TcpSocketFactory.h"
 #include "TcpSocketEnums.h"
 
+namespace QMLTcpSockets{
+
 void QMLTcpSocketsPlugin::registerTypes(const char* uri){
     qmlRegisterType<TcpServer>(uri, 1, 0, "TcpServer");
     qmlRegisterType<TcpSocket>(uri, 1, 0, "TcpSocket");
-    qmlRegisterType<TcpSocketEnums>(uri, 1, 0, "TcpSocketEnums");
     qmlRegisterType<QIntPtr>(uri, 1, 0, "QIntPtr");
     qmlRegisterSingletonType<TcpSocketFactory>(uri, 1, 0, "TcpSocketFactory",
                                                [] (QQmlEngine* qmlEngine, QJSEngine* jsEngine)->QObject* {
@@ -42,4 +43,6 @@ void QMLTcpSocketsPlugin::registerTypes(const char* uri){
                                                    return new TcpSocketFactory();
                                                });
     qmlRegisterType<TcpSocketEnums>(uri, 1, 0, "TcpSocketEnums");
+}
+
 }

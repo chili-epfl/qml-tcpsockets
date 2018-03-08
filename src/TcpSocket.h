@@ -32,15 +32,27 @@
 #include "QIntPtr.h"
 #include "TcpSocketEnums.h"
 
+namespace QMLTcpSockets{
+
+/**
+ * @brief QML wrapper for QTcpSocket
+ *
+ * Can be created from a native socket descriptor returned from a TcpServer incoming connection, or can connect to a peer on its own.
+ */
 class TcpSocket : public QQuickItem {
     /* *INDENT-OFF* */
     Q_OBJECT
     /* *INDENT-ON* */
 
+    /** @brief Address to connect to, or address of the already open remote connection, default "" */
     Q_PROPERTY(QString peer READ getPeer WRITE setPeer NOTIFY peerChanged)
+
+    /** @brief Port to connect to, or port of the already open remote connection , must be in [0,65535], default 0 */
     Q_PROPERTY(int port READ getPort WRITE setPort NOTIFY portChanged)
 
 public:
+
+    /** @cond DO_NOT_DOCUMENT */
 
     /**
      * @brief Creates a new TcpSocket with the given QML parent
@@ -90,6 +102,8 @@ public:
      */
     void setPort(int port);
 
+    /** @endcond */
+
 public slots:
 
     /**
@@ -127,6 +141,8 @@ public slots:
 
 signals:
 
+    /** @cond DO_NOT_DOCUMENT */
+
     /**
      * @brief Emitted when the peer name changes
      */
@@ -136,6 +152,8 @@ signals:
      * @brief Emitted whe the port changes
      */
     void portChanged();
+
+    /** @endcond */
 
     /**
      * @brief Emitted when the socket is connected
@@ -157,7 +175,7 @@ signals:
     /**
      * @brief Emitted when some bytes are received
      *
-     * @param message Byte array that was received, all elements are guaranteed to be in [0x00, 0xFF]
+     * @param bytes Byte array that was received, all elements are guaranteed to be in [0x00, 0xFF]
      */
     void bytesReceived(QList<int> bytes);
 
@@ -183,6 +201,9 @@ private:
 
 };
 
+}
+
+using namespace QMLTcpSockets;
 Q_DECLARE_METATYPE(TcpSocket*)
 
 #endif /* TCPSOCKET_H */

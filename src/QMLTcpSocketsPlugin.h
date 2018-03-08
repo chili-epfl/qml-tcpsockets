@@ -28,6 +28,10 @@
 #include <QQmlExtensionPlugin>
 #include <qqml.h>
 
+namespace QMLTcpSockets{
+
+/** @cond DO_NOT_DOCUMENT */
+
 class QMLTcpSocketsPlugin : public QQmlExtensionPlugin {
     /* *INDENT-OFF* */
     Q_OBJECT
@@ -37,5 +41,9 @@ class QMLTcpSocketsPlugin : public QQmlExtensionPlugin {
 public:
     void registerTypes(const char* uri);
 };
+
+/** @endcond */
+
+}
 
 #endif /* QMLTCPSOCKETSPLUGIN_H */

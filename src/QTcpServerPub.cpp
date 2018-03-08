@@ -24,8 +24,12 @@
 
 #include"QTcpServerPub.h"
 
+namespace QMLTcpSockets{
+
 QTcpServerPub::QTcpServerPub(QObject* parent) : QTcpServer(parent){ }
 
 void QTcpServerPub::incomingConnection(qintptr socketDescriptor){
     emit incomingConnectionSignal(socketDescriptor);
+}
+
 }

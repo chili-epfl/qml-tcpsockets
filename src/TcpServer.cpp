@@ -24,6 +24,8 @@
 
 #include "TcpServer.h"
 
+namespace QMLTcpSockets{
+
 TcpServer::TcpServer(QQuickItem* parent):
     QQuickItem(parent),
     server(this)
@@ -88,4 +90,6 @@ void TcpServer::publishIncomingConnection(qintptr socketDescriptor){
    QIntPtr* wrappedSocketDesc = new QIntPtr();
    wrappedSocketDesc->ptr = socketDescriptor;
    emit newConnection(wrappedSocketDesc);
+}
+
 }

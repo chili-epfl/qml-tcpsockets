@@ -27,12 +27,19 @@
 
 #include <QAbstractSocket>
 
+namespace QMLTcpSockets{
+
+/**
+ * @brief Wrapper to expose QAbstractSocket enums, see http://doc.qt.io/qt-5/qabstractsocket.html
+ */
 class TcpSocketEnums : public QAbstractSocket {
     /* *INDENT-OFF* */
     Q_OBJECT
     /* *INDENT-ON* */
 
 public:
+
+    /** @cond DO_NOT_DOCUMENT */
 
     /**
      * @brief Creates a new TcpSocketEnums with the given Qt parent
@@ -46,6 +53,10 @@ public:
      */
     ~TcpSocketEnums();
 
+    /** @endcod */
+
 };
+
+}
 
 #endif /* TCPSOCKETENUMS_H */

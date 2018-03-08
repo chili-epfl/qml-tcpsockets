@@ -26,6 +26,8 @@
 
 #include <QHostAddress>
 
+namespace QMLTcpSockets{
+
 TcpSocket::TcpSocket(QQuickItem* parent):
     QQuickItem(parent),
     socket(this)
@@ -153,4 +155,6 @@ bool TcpSocket::writeBytes(QList<int> bytes){
     socket.flush();
 
     return true;
+}
+
 }

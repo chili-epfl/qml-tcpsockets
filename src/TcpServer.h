@@ -31,16 +31,28 @@
 #include "TcpSocket.h"
 #include "QIntPtr.h"
 
+namespace QMLTcpSockets{
+
+/**
+ * @brief QML wrapper for QTcpServer
+ */
 class TcpServer : public QQuickItem {
     /* *INDENT-OFF* */
     Q_OBJECT
     /* *INDENT-ON* */
 
+    /** @brief Whether to listen for incoming connections, default false */
     Q_PROPERTY(bool listen READ isListening WRITE setListening NOTIFY listeningChanged)
+
+    /** @brief Address to listen on, default "0.0.0.0" i.e any address */
     Q_PROPERTY(QString host READ getHost WRITE setHost NOTIFY hostChanged)
+
+    /** @brief Port to listen on, must be in [0,65535], default 0 */
     Q_PROPERTY(int port READ getPort WRITE setPort NOTIFY portChanged)
 
 public:
+
+    /** @cond DO_NOT_DOCUMENT */
 
     /**
      * @brief Creates a new TcpServer with the given QML parent
@@ -96,7 +108,11 @@ public:
      */
     void setPort(int port);
 
+    /** @endcond */
+
 signals:
+
+    /** @cond DO_NOT_DOCUMENT */
 
     /**
      * @brief Emitted when listening changes
@@ -113,8 +129,10 @@ signals:
      */
     void portChanged();
 
+    /** @endcond */
+
     /**
-     * @brief Emitted when a new socket is connected
+     * @brief Emitted when a new connection is made to the server, socketDescriptor must be passed to a TcpSocket or a TcpSocketFactory to create the socket
      *
      * @param socketDescriptor Native descriptor to the socket that has just connected
      */
@@ -134,5 +152,7 @@ private:
     QTcpServerPub server;   ///< The QTcpServer object to wrap
 
 };
+
+}
 
 #endif /* TCPSERVER_H */

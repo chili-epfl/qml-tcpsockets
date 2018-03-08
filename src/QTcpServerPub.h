@@ -27,6 +27,13 @@
 
 #include <QTcpServer>
 
+namespace QMLTcpSockets{
+
+/** @cond DO_NOT_DOCUMENT */
+
+/**
+ * @brief A QTcpServer that emits incomingConnection() as signal (duh)
+ */
 class QTcpServerPub : public QTcpServer {
     /* *INDENT-OFF* */
     Q_OBJECT
@@ -60,5 +67,9 @@ protected:
     void incomingConnection(qintptr socketDescriptor) override;
 
 };
+
+/** @endcond */
+
+}
 
 #endif /* QTCPSERVERPUB_H */

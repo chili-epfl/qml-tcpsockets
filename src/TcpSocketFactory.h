@@ -30,12 +30,20 @@
 #include "TcpSocket.h"
 #include "QIntPtr.h"
 
+namespace QMLTcpSockets{
+
+/**
+ * @brief Creates new TcpSocket from native socket descriptor (returned from a TcpServer incoming connection).
+ * @singleton
+ */
 class TcpSocketFactory : public QQuickItem {
     /* *INDENT-OFF* */
     Q_OBJECT
     /* *INDENT-ON* */
 
 public:
+
+    /** @cond DO_NOT_DOCUMENT */
 
     /**
      * @brief Creates a new TcpSocketFactory with the given QML parent
@@ -49,10 +57,12 @@ public:
      */
     ~TcpSocketFactory();
 
+    /** @endcond */
+
 public slots:
 
     /**
-     * @brief Creates a new TcpSocket from a native socket descriptor
+     * @brief Creates and returns a new open socket that wraps the native socket descriptor, with the given QML parent (optional)
      *
      * @param socketDescriptor Native socket descriptor
      * @param parent QML parent of the newly created TcpSocket
@@ -61,5 +71,7 @@ public slots:
     static TcpSocket* fromDescriptor(QIntPtr* socketDescriptor, QQuickItem* parent = 0);
 
 };
+
+}
 
 #endif /* TCPSOCKETFACTORY_H */

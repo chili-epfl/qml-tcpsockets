@@ -24,8 +24,12 @@
 
 #include"QIntPtr.h"
 
+namespace QMLTcpSockets{
+
 QIntPtr::QIntPtr(QObject* parent) : QObject(parent){
     ptr = 0;
 }
 
 QIntPtr::~QIntPtr(){ }
+
+}

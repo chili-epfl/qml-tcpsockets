@@ -32,11 +32,11 @@ ApplicationWindow {
         onNewConnection: {
             serverSocket = TcpSocketFactory.fromDescriptor(socketDescriptor);
             serverSocket.setSocketOption(TcpSocketEnums.LowDelayOption, 1);
-            serverSocket.bytesReceived.connect(function(bytes){console.log("Server received: " + getStr(bytes)); });
-            serverSocket.connected.connect(function(){console.log("Server socket connected."); });
-            serverSocket.disconnected.connect(function(){console.log("Server socket disconnected."); });
-            serverSocket.peerChanged.connect(function(){console.log("Server socket peer changed: " + serverSocket.peer); });
-            serverSocket.portChanged.connect(function(){console.log("Server socket port changed: " + serverSocket.port); });
+            serverSocket.bytesReceived.connect(function(bytes){console.info("Server received: " + getStr(bytes)); });
+            serverSocket.connected.connect(function(){console.info("Server socket connected."); });
+            serverSocket.disconnected.connect(function(){console.info("Server socket disconnected."); });
+            serverSocket.peerChanged.connect(function(){console.info("Server socket peer changed: " + serverSocket.peer); });
+            serverSocket.portChanged.connect(function(){console.info("Server socket port changed: " + serverSocket.port); });
         }
     }
 
@@ -47,14 +47,14 @@ ApplicationWindow {
 
         peer: clientAddressField.text
         port: parseInt(clientPortField.text)
-        onBytesReceived: console.log("Client received: " + getStr(bytes))
+        onBytesReceived: console.info("Client received: " + getStr(bytes))
         onConnected: {
-            console.log("Client socket connected");
+            console.info("Client socket connected");
             setSocketOption(TcpSocketEnums.LowDelayOption, 1);
         }
-        onDisconnected: console.log("Client socket disconnected")
-        onPeerChanged: console.log("Client socket peer changed: " + peer)
-        onPortChanged: console.log("Client socket port changed: " + port)
+        onDisconnected: console.info("Client socket disconnected")
+        onPeerChanged: console.info("Client socket peer changed: " + peer)
+        onPortChanged: console.info("Client socket port changed: " + port)
     }
 
     Row{
@@ -66,7 +66,7 @@ ApplicationWindow {
                     text: "Listen"
                     onClicked: {
                         server.listen = true;
-                        console.log("Server stared listening.");
+                        console.info("Server stared listening.");
                     }
                 }
 

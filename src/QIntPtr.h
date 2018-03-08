@@ -27,12 +27,19 @@
 
 #include <QObject>
 
+namespace QMLTcpSockets{
+
+/**
+ * @brief QObject wrapper for qintptr. Can be passed around in QML but doesn't have any API.
+ */
 class QIntPtr : public QObject {
     /* *INDENT-OFF* */
     Q_OBJECT
     /* *INDENT-ON* */
 
 public:
+
+    /** @cond DO_NOT_DOCUMENT */
 
     /**
      * @brief Creates a new QIntPtr with the given Qt parent
@@ -48,8 +55,13 @@ public:
 
     qintptr ptr; ///< Wrapped low level pointer
 
+    /** @endcond */
+
 };
 
+}
+
+using namespace QMLTcpSockets;
 Q_DECLARE_METATYPE(QIntPtr*)
 
 #endif /* QINTPTR_H */

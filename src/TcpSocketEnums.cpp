@@ -24,6 +24,10 @@
 
 #include "TcpSocketEnums.h"
 
+namespace QMLTcpSockets{
+
 TcpSocketEnums::TcpSocketEnums(QObject* parent) : QAbstractSocket(QAbstractSocket::TcpSocket, parent){ }
 
 TcpSocketEnums::~TcpSocketEnums(){ }
+
+}
