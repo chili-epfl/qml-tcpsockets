@@ -61,7 +61,6 @@ public:
 
 }
 
-using namespace QMLTcpSockets;
-Q_DECLARE_METATYPE(QIntPtr*)
+Q_DECLARE_METATYPE(QMLTcpSockets::QIntPtr*)
 
 #endif /* QINTPTR_H */

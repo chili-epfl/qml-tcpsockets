@@ -68,7 +68,7 @@ public slots:
      * @param parent QML parent of the newly created TcpSocket
      * @return New socket, open if the descriptor is valid
      */
-    static TcpSocket* fromDescriptor(QIntPtr* socketDescriptor, QQuickItem* parent = 0);
+    static QMLTcpSockets::TcpSocket* fromDescriptor(QMLTcpSockets::QIntPtr* socketDescriptor, QQuickItem* parent = 0);
 
 };
 

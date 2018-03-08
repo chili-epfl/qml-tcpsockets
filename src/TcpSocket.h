@@ -67,7 +67,7 @@ public:
      * @param socketDescriptor Descriptor to the external native socket that was opened outside this wrapper, calls deleteLater() on it in the end
      * @param parent The QML parent
      */
-    TcpSocket(QIntPtr* socketDescriptor, QQuickItem* parent = 0);
+    TcpSocket(QMLTcpSockets::QIntPtr* socketDescriptor, QQuickItem* parent = 0);
 
     /**
      * @brief Destroys this TcpSocket
@@ -111,7 +111,7 @@ public slots:
      *
      * @param socketDescriptor Native socket descriptor, calls deleterLater() on it in the end
      */
-    void setSocketDescriptor(QIntPtr* socketDescriptor);
+    void setSocketDescriptor(QMLTcpSockets::QIntPtr* socketDescriptor);
 
     /**
      * Sets the given low level option to the value described by value.
@@ -203,7 +203,6 @@ private:
 
 }
 
-using namespace QMLTcpSockets;
-Q_DECLARE_METATYPE(TcpSocket*)
+Q_DECLARE_METATYPE(QMLTcpSockets::TcpSocket*)
 
 #endif /* TCPSOCKET_H */

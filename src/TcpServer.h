@@ -136,7 +136,7 @@ signals:
      *
      * @param socketDescriptor Native descriptor to the socket that has just connected
      */
-    void newConnection(QIntPtr* socketDescriptor);
+    void newConnection(QMLTcpSockets::QIntPtr* socketDescriptor);
 
 private slots:
 
