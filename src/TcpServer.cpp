@@ -30,7 +30,7 @@ TcpServer::TcpServer(QQuickItem* parent):
     QQuickItem(parent),
     server(this)
 {
-    host = "0:0:0:0";
+    host = "0.0.0.0";
     port = 0;
         connect(&server, SIGNAL(incomingConnectionSignal(qintptr)), this, SLOT(publishIncomingConnection(qintptr)));
 }
