@@ -22,4 +22,4 @@ build & run [Windows]
 
   - Load the project into QtCreator, select the `Release` build (and not the `Debug` and `Profile` build)
   - Press the Run button with the big green arrow once, this will install and launch the app (you may have to enable `Developer mode` in `Settings` -> `Update & Security` -> `For developers` -> `Use developer features`; this windows will pop up anyway if you haven't enabled it already)
-  - For all subsequent launches, use `qml-cache-demo` now installed in the Start Menu
+  - For all subsequent launches, use the app launcher now installed in the Start Menu
