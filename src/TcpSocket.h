@@ -38,6 +38,7 @@ namespace QMLTcpSockets{
  * @brief QML wrapper for QTcpSocket
  *
  * Can be created from a native socket descriptor returned from a TcpServer incoming connection, or can connect to a peer on its own.
+ * Due to the sandboxing of WinRT, cannot listen on nor connect to localhost sockets on this platform.
  */
 class TcpSocket : public QQuickItem {
     /* *INDENT-OFF* */

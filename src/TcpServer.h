@@ -35,6 +35,8 @@ namespace QMLTcpSockets{
 
 /**
  * @brief QML wrapper for QTcpServer
+ *
+ * Due to the sandboxing of WinRT, cannot listen on nor connect to localhost sockets on this platform.
  */
 class TcpServer : public QQuickItem {
     /* *INDENT-OFF* */
