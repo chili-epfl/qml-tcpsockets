@@ -40,6 +40,8 @@ class QMLTcpSockets::TcpServer
 
 QML wrapper for QTcpServer.
 
+Due to the sandboxing of WinRT, cannot listen on nor connect to localhost sockets on this platform.
+
 ## Summary
 
  Members                        | Descriptions                                
@@ -47,7 +49,7 @@ QML wrapper for QTcpServer.
 `{property} bool `[`listen`](#classQMLTcpSockets_1_1TcpServer_1a5ac42352045298060cad40538fcc7fcc) | Whether to listen for incoming connections, default false.
 `{property} QString `[`host`](#classQMLTcpSockets_1_1TcpServer_1a914ff509ac395f395170c14784dfe98c) | Address to listen on, default "0.0.0.0" i.e any address.
 `{property} int `[`port`](#classQMLTcpSockets_1_1TcpServer_1a8136392490a77db01b9b555fd6ac0327) | Port to listen on, must be in [0,65535], default 0.
-`{signal} public void `[`newConnection`](#classQMLTcpSockets_1_1TcpServer_1ab14aa3d1db8ba3a307117c5dcd85e254)`(`[`QIntPtr`](#classQMLTcpSockets_1_1QIntPtr)` * socketDescriptor)` | Emitted when a new connection is made to the server, socketDescriptor must be passed to a [TcpSocket](#classQMLTcpSockets_1_1TcpSocket) or a [TcpSocketFactory](#classQMLTcpSockets_1_1TcpSocketFactory) to create the socket.
+`{signal} public void `[`newConnection`](#classQMLTcpSockets_1_1TcpServer_1ac45ce6a439ed6850926c1ef118f7b9e2)`(`[`QMLTcpSockets::QIntPtr`](#classQMLTcpSockets_1_1QIntPtr)` * socketDescriptor)` | Emitted when a new connection is made to the server, socketDescriptor must be passed to a [TcpSocket](#classQMLTcpSockets_1_1TcpSocket) or a [TcpSocketFactory](#classQMLTcpSockets_1_1TcpSocketFactory) to create the socket.
 
 ## Members
 
@@ -65,7 +67,7 @@ Host address, e.g "127.0.0.1".
 
 Port to listen on, must be in [0,65535], default 0.
 
-#### `{signal} public void `[`newConnection`](#classQMLTcpSockets_1_1TcpServer_1ab14aa3d1db8ba3a307117c5dcd85e254)`(`[`QIntPtr`](#classQMLTcpSockets_1_1QIntPtr)` * socketDescriptor)` 
+#### `{signal} public void `[`newConnection`](#classQMLTcpSockets_1_1TcpServer_1ac45ce6a439ed6850926c1ef118f7b9e2)`(`[`QMLTcpSockets::QIntPtr`](#classQMLTcpSockets_1_1QIntPtr)` * socketDescriptor)` 
 
 Emitted when a new connection is made to the server, socketDescriptor must be passed to a [TcpSocket](#classQMLTcpSockets_1_1TcpSocket) or a [TcpSocketFactory](#classQMLTcpSockets_1_1TcpSocketFactory) to create the socket.
 
@@ -81,7 +83,7 @@ class QMLTcpSockets::TcpSocket
 
 QML wrapper for QTcpSocket.
 
-Can be created from a native socket descriptor returned from a [TcpServer](#classQMLTcpSockets_1_1TcpServer) incoming connection, or can connect to a peer on its own.
+Can be created from a native socket descriptor returned from a [TcpServer](#classQMLTcpSockets_1_1TcpServer) incoming connection, or can connect to a peer on its own. Due to the sandboxing of WinRT, cannot listen on nor connect to localhost sockets on this platform.
 
 ## Summary
 
@@ -93,7 +95,7 @@ Can be created from a native socket descriptor returned from a [TcpServer](#clas
 `{signal} public void `[`disconnected`](#classQMLTcpSockets_1_1TcpSocket_1ac8a294ab7d4b9b2a8268f8dc0ce3b7bd)`()` | Emitted when the socket is disconected.
 `{signal} public void `[`error`](#classQMLTcpSockets_1_1TcpSocket_1a43ef22856c779ebc659dd97ab485b40c)`(int socketError)` | Emitted when there is an error.
 `{signal} public void `[`bytesReceived`](#classQMLTcpSockets_1_1TcpSocket_1a73bed2b09c433069bfab35a7106c1f04)`(QList< int > bytes)` | Emitted when some bytes are received.
-`{slot} public void `[`setSocketDescriptor`](#classQMLTcpSockets_1_1TcpSocket_1a99da222a45c339c183cbf373ca318fa1)`(`[`QIntPtr`](#classQMLTcpSockets_1_1QIntPtr)` * socketDescriptor)` | Initializes the socket with the given native descriptor (returned from [TcpServer](#classQMLTcpSockets_1_1TcpServer)), calls socketDescriptor->deleteLater() in the end.
+`{slot} public void `[`setSocketDescriptor`](#classQMLTcpSockets_1_1TcpSocket_1af250516ca302a2eeb2a5a75b07471337)`(`[`QMLTcpSockets::QIntPtr`](#classQMLTcpSockets_1_1QIntPtr)` * socketDescriptor)` | Initializes the socket with the given native descriptor (returned from [TcpServer](#classQMLTcpSockets_1_1TcpServer)), calls socketDescriptor->deleteLater() in the end.
 `{slot} public void `[`setSocketOption`](#classQMLTcpSockets_1_1TcpSocket_1a8e4e9159b63d0a960f6928ee335bdcd6)`(int option,QVariant value)` | Sets the given low level option to the value described by value.
 `{slot} public void `[`connectToHost`](#classQMLTcpSockets_1_1TcpSocket_1a515f7ef9263e1d0a734420020c58d23f)`()` | Initiates a connection to the peer on port.
 `{slot} public void `[`disconnectFromHost`](#classQMLTcpSockets_1_1TcpSocket_1a1c5faa0f97dfb4ed6b880ddef3510a9c)`()` | Starts closing the socket.
@@ -133,7 +135,7 @@ Emitted when some bytes are received.
 #### Parameters
 * `bytes` Byte array that was received, all elements are guaranteed to be in [0x00, 0xFF]
 
-#### `{slot} public void `[`setSocketDescriptor`](#classQMLTcpSockets_1_1TcpSocket_1a99da222a45c339c183cbf373ca318fa1)`(`[`QIntPtr`](#classQMLTcpSockets_1_1QIntPtr)` * socketDescriptor)` 
+#### `{slot} public void `[`setSocketDescriptor`](#classQMLTcpSockets_1_1TcpSocket_1af250516ca302a2eeb2a5a75b07471337)`(`[`QMLTcpSockets::QIntPtr`](#classQMLTcpSockets_1_1QIntPtr)` * socketDescriptor)` 
 
 Initializes the socket with the given native descriptor (returned from [TcpServer](#classQMLTcpSockets_1_1TcpServer)), calls socketDescriptor->deleteLater() in the end.
 
@@ -182,11 +184,11 @@ This class is **singleton**, you can call `ThisClass.anyFunction()` and use `Thi
 
  Members                        | Descriptions                                
 --------------------------------|---------------------------------------------
-`{slot} public static `[`TcpSocket`](#classQMLTcpSockets_1_1TcpSocket)` * `[`fromDescriptor`](#classQMLTcpSockets_1_1TcpSocketFactory_1a3e46744b97f6f6bbd949e607dc8d153c)`(`[`QIntPtr`](#classQMLTcpSockets_1_1QIntPtr)` * socketDescriptor,QQuickItem * parent)` | Creates and returns a new open socket that wraps the native socket descriptor, with the given QML parent (optional)
+`{slot} public static `[`QMLTcpSockets::TcpSocket`](#classQMLTcpSockets_1_1TcpSocket)` * `[`fromDescriptor`](#classQMLTcpSockets_1_1TcpSocketFactory_1a53394243db157558b3fbe26748a12642)`(`[`QMLTcpSockets::QIntPtr`](#classQMLTcpSockets_1_1QIntPtr)` * socketDescriptor,QQuickItem * parent)` | Creates and returns a new open socket that wraps the native socket descriptor, with the given QML parent (optional)
 
 ## Members
 
-#### `{slot} public static `[`TcpSocket`](#classQMLTcpSockets_1_1TcpSocket)` * `[`fromDescriptor`](#classQMLTcpSockets_1_1TcpSocketFactory_1a3e46744b97f6f6bbd949e607dc8d153c)`(`[`QIntPtr`](#classQMLTcpSockets_1_1QIntPtr)` * socketDescriptor,QQuickItem * parent)` 
+#### `{slot} public static `[`QMLTcpSockets::TcpSocket`](#classQMLTcpSockets_1_1TcpSocket)` * `[`fromDescriptor`](#classQMLTcpSockets_1_1TcpSocketFactory_1a53394243db157558b3fbe26748a12642)`(`[`QMLTcpSockets::QIntPtr`](#classQMLTcpSockets_1_1QIntPtr)` * socketDescriptor,QQuickItem * parent)` 
 
 Creates and returns a new open socket that wraps the native socket descriptor, with the given QML parent (optional)
 
