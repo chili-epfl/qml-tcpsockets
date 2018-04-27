@@ -1,0 +1,9 @@
+<map id="src/TcpSocketEnums.h" name="src/TcpSocketEnums.h">
+<area shape="rect" id="node2" href="$TcpSocket_8h.html" title="QML wrapper header for QTcpSocket. " alt="" coords="184,80,303,107"/>
+<area shape="rect" id="node8" href="$TcpSocketEnums_8cpp.html" title="Wrapper to expose QAbstractSocket enums. " alt="" coords="327,80,501,107"/>
+<area shape="rect" id="node3" href="$TcpServer_8h.html" title="QML wrapper header for QTcpServer. " alt="" coords="17,155,131,181"/>
+<area shape="rect" id="node5" href="$TcpSocketFactory_8h.html" title="Singleton TcpSocket factory for QML. " alt="" coords="162,155,325,181"/>
+<area shape="rect" id="node7" href="$TcpSocket_8cpp.html" title="QML wrapper source for QTcpSocket. " alt="" coords="349,155,481,181"/>
+<area shape="rect" id="node4" href="$TcpServer_8cpp.html" title="QML wrapper source for QTcpServer. " alt="" coords="5,229,135,256"/>
+<area shape="rect" id="node6" href="$TcpSocketFactory_8cpp.html" title="Singleton TcpSocket factory for QML. " alt="" coords="159,229,335,256"/>
+</map>

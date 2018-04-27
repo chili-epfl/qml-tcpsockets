@@ -1,0 +1,7 @@
+<map id="src/TcpServer.cpp" name="src/TcpServer.cpp">
+<area shape="rect" id="node2" href="$TcpServer_8h.html" title="QML wrapper header for QTcpServer. " alt="" coords="247,80,341,107"/>
+<area shape="rect" id="node4" href="$QTcpServerPub_8h.html" title="A QTcpServer that emits incomingConnection() as signal (duh) " alt="" coords="52,155,179,181"/>
+<area shape="rect" id="node6" href="$TcpSocket_8h.html" title="QML wrapper header for QTcpSocket. " alt="" coords="318,155,414,181"/>
+<area shape="rect" id="node9" href="$QIntPtr_8h.html" title="QObject wrapper for qintptr. " alt="" coords="597,229,671,256"/>
+<area shape="rect" id="node11" href="$TcpSocketEnums_8h.html" title="Wrapper to expose QAbstractSocket enums. " alt="" coords="237,229,375,256"/>
+</map>

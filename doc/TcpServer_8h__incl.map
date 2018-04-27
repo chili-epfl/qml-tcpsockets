@@ -1,0 +1,6 @@
+<map id="src/TcpServer.h" name="src/TcpServer.h">
+<area shape="rect" id="node3" href="$QTcpServerPub_8h.html" title="A QTcpServer that emits incomingConnection() as signal (duh) " alt="" coords="52,80,179,107"/>
+<area shape="rect" id="node5" href="$TcpSocket_8h.html" title="QML wrapper header for QTcpSocket. " alt="" coords="318,80,414,107"/>
+<area shape="rect" id="node8" href="$QIntPtr_8h.html" title="QObject wrapper for qintptr. " alt="" coords="597,155,671,181"/>
+<area shape="rect" id="node10" href="$TcpSocketEnums_8h.html" title="Wrapper to expose QAbstractSocket enums. " alt="" coords="237,155,375,181"/>
+</map>

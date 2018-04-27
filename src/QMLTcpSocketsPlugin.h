@@ -16,6 +16,12 @@
  */
 
 /**
+ * @mainpage qml-tcpsockets
+ *
+ * qml-tcpsockets contains QML wrappers for QTcpServer and QTcpSocket. More Qt Networking wrappers might come soon. See README.md for more information.
+ */
+
+/**
  * @file QMLTcpSocketsPlugin.h
  * @brief Object that exposes the QMLTcpSockets plugin components as QML objects
  * @author Ayberk Özgür

@@ -1,0 +1,5 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node1" href="$classQMLTcpSockets_1_1TcpServer.html" title="QML wrapper for QTcpServer. " alt="" coords="5,35,193,61"/>
+<area shape="rect" id="node2" href="$classQMLTcpSockets_1_1TcpSocket.html" title="QML wrapper for QTcpSocket. " alt="" coords="241,5,432,32"/>
+<area shape="rect" id="node3" href="$classQMLTcpSockets_1_1TcpSocketFactory.html" title="Creates new TcpSocket from native socket descriptor (returned from a TcpServer incoming connection)..." alt="" coords="241,57,432,98"/>
+</map>

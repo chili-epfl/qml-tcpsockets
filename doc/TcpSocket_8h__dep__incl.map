@@ -1,0 +1,7 @@
+<map id="src/TcpSocket.h" name="src/TcpSocket.h">
+<area shape="rect" id="node2" href="$TcpServer_8h.html" title="QML wrapper header for QTcpServer. " alt="" coords="17,80,131,107"/>
+<area shape="rect" id="node4" href="$TcpSocketFactory_8h.html" title="Singleton TcpSocket factory for QML. " alt="" coords="162,80,325,107"/>
+<area shape="rect" id="node6" href="$TcpSocket_8cpp.html" title="QML wrapper source for QTcpSocket. " alt="" coords="349,80,481,107"/>
+<area shape="rect" id="node3" href="$TcpServer_8cpp.html" title="QML wrapper source for QTcpServer. " alt="" coords="5,155,135,181"/>
+<area shape="rect" id="node5" href="$TcpSocketFactory_8cpp.html" title="Singleton TcpSocket factory for QML. " alt="" coords="159,155,335,181"/>
+</map>
